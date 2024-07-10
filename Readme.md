@@ -13,7 +13,7 @@
 
 ## Modelagem de dados
 
-![Diagrama UML]()
+![Diagrama UML](/docs/NutriWise-Diagram.png)
 
 ## Como Executar o Projeto
 
@@ -52,7 +52,7 @@ Este projeto foi desenvolvido por:
 
 - [Guilherme Grego Santos](https://github.com/GregoSX)
 - [Otavio Augusto Trindade Fonseca](https://github.com/ootaviofonseca)
-- [Thiago Odilon de Almeida](https://github.com/Luiziki)
+- [Thiago Odilon de Almeida](https://github.com/teagoodilon)
 
 ## Referências
 
