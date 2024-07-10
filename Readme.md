@@ -15,7 +15,7 @@
 
 ![Diagrama UML](/docs/NutriWise-Diagram.png)
 
-## Como Executar o Projeto
+## Como Executar o Projeto (Ambiente Linux)
 
 1. Instale o python na máquina:
 
@@ -27,21 +27,29 @@
        git clone https://github.com/ootaviofonseca/NutriWise.git
 
 
-2. Instale a virtualenv 
+3. Instale dependências:
+
+       pip install -r requirements.txt
+
+
+3. Instale a virtualenv:
 
        pip install virtualenv
 
-
-3. Crie o ambiente virtual (venv) para isolar as instalações/dependências do Python:
+4. Crie o ambiente virtual (venv) para isolar as instalações/dependências do Python:
 
        python3 -m venv venv
 
 
-4. Ative o ambiente virtual (venv) no seu computador utilizando o comando abaixo:
+5. Ative o ambiente virtual (venv) no seu computador utilizando o comando abaixo:
 
        source venv/bin/activate
 
-5. Inicie a execução do projeto django utilizando o comando abaixo:
+6. Instale o django dentro do ambiente virtual criado:
+
+       pip3 install django
+
+7. Inicie a execução do projeto django utilizando o comando abaixo:
 
        python3 manage.py runserver
  
