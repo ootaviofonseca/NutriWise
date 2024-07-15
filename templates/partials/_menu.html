@@ -5,6 +5,13 @@
         <div class="cabecalho__titulo">
             <h1>NutriWise</h1>
         </div>
+        
+    {%for message in messages%}
+    <div class="alert alert-danger" role="alert">
+        <p> {{message}}	</p>
+    </div>
+    {%endfor%}
+
     <main class="principal">
         <section class="menu-lateral">
             <nav class="menu-lateral__navegacao">

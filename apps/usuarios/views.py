@@ -15,14 +15,15 @@ def loginAdm(request):
         form = LoginFormsAdm(request.POST)
         
         if form.is_valid():
-            username = form.cleaned_data['username']
+            nome = form.cleaned_data['username']
             senha = form.cleaned_data['senha']
 
-            user = auth.authenticate(username=username, password=senha)
+            user = auth.authenticate(username=nome, password=senha)
             #verifica se o usuário existe no banco de dados e se a senha está correta
             
             if user is not None:
                 auth.login(request, user)
+                messages.success(request, f"{nome} logado com sucesso")
                 return redirect('index')
            
             else:
@@ -44,7 +45,9 @@ def loginPa(request):
             #verifica se o usuário existe no banco de dados e se a senha está correta
             
             if user is not None:
+                
                 auth.login(request, user)
+                messages.success(request, "Logado com sucesso")
                 return redirect('index')
            
             else:
@@ -101,4 +104,4 @@ def cadastroPa(request):
 def logout(request):
     auth.logout(request)
     messages.success(request, 'Deslogado com sucesso!')
-    return redirect('login')
+    return redirect('index')

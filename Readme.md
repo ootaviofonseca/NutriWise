@@ -36,16 +36,32 @@ O NutriWise foi criado na disciplina de GAC-116 Programação WEB. A ideia do si
 
 5. Ative o ambiente virtual (venv) no seu computador utilizando o comando abaixo:
 
-       source venv/bin/activate
+       source venv/bin/activate (Linux)
+       venv\Scripts\Activate (Windows)
 
 6. Instale as dependências:
 
        pip install -r requirements.txt
 
+7. Execute os seguintes comandos:
+       
+       python manage.py makemigrations
+       python manage.py migrate
 
-7. Inicie a execução do projeto django utilizando o comando abaixo:
+8. Inicie a execução do projeto django utilizando o comando abaixo:
 
-       python3 manage.py runserver
+       python manage.py runserver
+
+9. Para acessar o Django Admin:
+
+       1. coloque o seguinte comando no terminal:
+              python manage.py createsuperuser (você prenche seus dados para criar um super usuário)
+       
+       2. Coloque um "/admin" na frente do endereço da página
+
+       3. Coloque seu login e senha criado anteriormente
+
+
  
 ## 🤝 Desenvolvedores
 
