@@ -1,18 +1,12 @@
-from django.shortcuts import render
+from django.shortcuts import redirect, render
 from django.http import HttpResponse
 from django.template import loader
 
 
-import os
+from django.contrib import messages
 
-def pageInicial(request):
-    # Diretório da pasta atual (onde views.py está localizado)
-    current_dir = os.path.dirname(os.path.abspath(__file__))
-    # Caminho absoluto para o template
-    template_path = os.path.join(current_dir, '../../templates/index.html')
-    
-    # Carregar e renderizar o template
-    with open(template_path, 'r') as file:
-        template_content = file.read()
-    
-    return HttpResponse(template_content)
+def index(request):
+    #if not request.user.is_authenticated:
+       # messages.error(request, 'Você precisa estar logado para acessar essa página')
+       # return redirect('loginPaciente')
+   return render(request,'galeria/index.html')

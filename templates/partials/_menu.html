@@ -1,0 +1,20 @@
+{% load static %}
+<div class="pagina-inicial">
+    <header class="cabecalho">
+
+        <div class="cabecalho__titulo">
+            <h1>NutriWise</h1>
+        </div>
+    <main class="principal">
+        <section class="menu-lateral">
+            <nav class="menu-lateral__navegacao">
+                <a href="{% url 'index' %}"><img src="{% static '/assets/ícones/1x/Home - ativo.png' %}"> Home</a>
+                <a href="{% url 'loginAdm' %}"><img src="{% static '/assets/ícones/1x/Mais vistas - inativo.png' %}"> Login ADM</a>
+                <a href="{% url 'loginPaciente' %}"><img src="{% static '/assets/ícones/1x/Mais vistas - inativo.png' %}"> Login</a>
+                <a href="{% url 'cadastroPaciente' %}"><img src="{% static '/assets/ícones/1x/Novas - inativo.png' %}"> Cadastro</a>
+                <a href="{% url 'cadastroAdm' %}"><img src="{% static '/assets/ícones/1x/Novas - inativo.png' %}"> Cadastro ADM</a>
+                <a href="{% url 'logout' %}"><img src="{% static '/assets/ícones/1x/Surpreenda-me - inativo.png' %}"> Logout</a>
+               
+
+            </nav>
+        </section>
