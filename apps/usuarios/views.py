@@ -1,18 +1,18 @@
 from django.shortcuts import render, redirect
 
-from apps.usuarios.forms import CadastroFormsAdm, CadastroFormsPa, LoginFormsAdm, LoginFormsPa
+from apps.usuarios.forms import CadastroFormsAdm, CadastroFormsPa, LoginForms
 
-from django.contrib.auth.models import User
+from django.contrib.auth.models import User, Group
 
 from django.contrib import auth
 
 from django.contrib import messages
 
-def loginAdm(request):
-    form = LoginFormsAdm()
+def login(request):
+    form = LoginForms()
 
     if request.method == 'POST':
-        form = LoginFormsAdm(request.POST)
+        form = LoginForms(request.POST)
         
         if form.is_valid():
             nome = form.cleaned_data['username']
@@ -23,37 +23,21 @@ def loginAdm(request):
             
             if user is not None:
                 auth.login(request, user)
-                messages.success(request, f"{nome} logado com sucesso")
-                return redirect('index')
-           
-            else:
-                messages.error(request, 'Usuário ou senha inválidos')
-    
-    return render(request, 'usuarios/loginAdm.html', {'form': form})
-
-def loginPa(request):
-    form = LoginFormsPa()
-
-    if request.method == 'POST':
-        form = LoginFormsPa(request.POST)
-        
-        if form.is_valid():
-            cpf = form.cleaned_data['cpf']
-            senha = form.cleaned_data['senha']
-
-            user = auth.authenticate(username=cpf, password=senha)
-            #verifica se o usuário existe no banco de dados e se a senha está correta
-            
-            if user is not None:
                 
-                auth.login(request, user)
-                messages.success(request, "Logado com sucesso")
-                return redirect('index')
+                # Verifica o grupo do usuário
+                if user.groups.filter(name='nutricionista').exists():
+                    # Redireciona para tela de nutricionista
+                    messages.success(request, f"{nome} logado como nutricionista.")
+                    return redirect('index')
+                elif user.groups.filter(name='paciente').exists():
+                    # Redireciona para tela de paciente
+                    messages.success(request, f"{nome} logado como paciente.")
+                    return redirect('index')
            
             else:
                 messages.error(request, 'Usuário ou senha inválidos')
     
-    return render(request, 'usuarios/loginPaciente.html', {'form': form})
+    return render(request, 'usuarios/login.html', {'form': form})
 
 def cadastroAdm(request):
     form = CadastroFormsAdm()
@@ -63,17 +47,30 @@ def cadastroAdm(request):
         
         if form.is_valid():
             
+            
             #pega os dados do formulário
-            username = form.cleaned_data['nomeCadastro']
+            nome = form.cleaned_data['nomeCadastro']
+            email = form.cleaned_data['emailCadastro']
             senha = form.cleaned_data['senhaCadastro']
 
-            if User.objects.filter(username=username).exists():
+            if User.objects.filter(username=nome).exists():
                 messages.error(request, 'Nome de usuário já existe')
             else:
-                user = User.objects.create_user(username=username, password=senha)
+                user = User.objects.create_user(
+                    username=nome, 
+                    email=email, 
+                    password=senha
+                )
+
+                # Verifica se o grupo "nutricionista" existe, se não, cria
+                nutricionista_group, created = Group.objects.get_or_create(name='nutricionista')
+                # Adiciona o usuário ao grupo "nutricionista"
+                user.groups.add(nutricionista_group)
+
+
                 user.save()
                 messages.success(request, 'Cadastro realizado com sucesso')
-                return redirect('loginAdm')
+                return redirect('login')
     
     return render(request, 'usuarios/cadastroAdm.html', {'form': form})
 
@@ -85,19 +82,25 @@ def cadastroPa(request):
         
         if form.is_valid():
             #pega os dados do formulário
-            username = form.cleaned_data['nomeCadastro']
-            cpf = form.cleaned_data['cpfCadastro']
+            nome = form.cleaned_data['nomeCadastro']
+            email = form.cleaned_data['emailCadastro']
             senha = form.cleaned_data['senhaCadastro']
 
-            if User.objects.filter(cpf=cpf).exists():
-                messages.error(request, 'CPF já cadastrado')
-            elif User.objects.filter(username=username).exists():
+            if User.objects.filter(email=email).exists():
+                messages.error(request, 'Email já cadastrado')
+            elif User.objects.filter(username=nome).exists():
                 messages.error(request, 'Nome de usuário já existe')
             else:
-                user = User.objects.create_user(username=username,id = cpf,  password=senha)
+                user = User.objects.create_user(username=nome, email=email,  password=senha)
+
+                # Verifica se o grupo "paciente" existe, se não, cria
+                paciente_group, created = Group.objects.get_or_create(name='paciente')
+                # Adiciona o usuário ao grupo "paciente"
+                user.groups.add(paciente_group)
+
                 user.save()
                 messages.success(request, 'Cadastro realizado com sucesso')
-                return redirect('loginPa')
+                return redirect('login')
     
     return render(request, 'usuarios/cadastroPaciente.html', {'form': form})
 

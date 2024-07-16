@@ -2,8 +2,9 @@ import re
 from django import forms
 from django.contrib.auth import get_user_model
 from django.core.exceptions import ValidationError
+from django.contrib.auth.models import User
 
-class LoginFormsAdm(forms.Form):
+class LoginForms(forms.Form):
     username = forms.CharField(
         label='Nome de Login:',
         required= True,
@@ -25,7 +26,7 @@ class LoginFormsAdm(forms.Form):
                 'placeholder': 'Digite sua senha'
                 }
             )
-        ) # widget=forms.PasswordInput is used to hide the password
+        ) 
     
 class CadastroFormsAdm (forms.Form):
     nomeCadastro = forms.CharField(
@@ -40,6 +41,18 @@ class CadastroFormsAdm (forms.Form):
             )
     )
 
+    emailCadastro = forms.EmailField(
+        label='Email:',
+        required= True,
+        max_length=100,
+        widget=forms.EmailInput(
+            attrs={
+                'class': 'form-control',
+                'placeholder': 'Digite seu email'
+                }
+            )
+    )
+
     senhaCadastro = forms.CharField(
         label='Senha:',
         required= True,
@@ -50,7 +63,7 @@ class CadastroFormsAdm (forms.Form):
                 'placeholder': 'Digite sua senha:'
                 }
             )
-        ) # widget=forms.PasswordInput is used to hide the password
+        ) 
     
     senhaCadastro2 = forms.CharField(
         label='Confirme sua senha:',
@@ -62,7 +75,7 @@ class CadastroFormsAdm (forms.Form):
                 'placeholder': 'Digite sua senha novamente'
                 }
             )
-        ) # widget=forms.PasswordInput is used to hide the password 
+        ) 
     
     def clean_nomeCadastro(self):
         nome = self.cleaned_data.get('nomeCadastro')
@@ -83,9 +96,9 @@ class CadastroFormsAdm (forms.Form):
                 raise forms.ValidationError('As senhas não são iguais')
             else:
                 return senha2
-
-class LoginFormsPa(forms.Form):
-    cpf = forms.CharField(
+            
+class CadastroFormsPa(forms.Form):
+    nomeCadastro = forms.CharField(
         label='Nome de Login:',
         required= True,
         max_length=100,
@@ -96,47 +109,17 @@ class LoginFormsPa(forms.Form):
                 }
             )
     )
-    senha = forms.CharField(
-        label='Senha:',
+
+    emailCadastro = forms.EmailField(
+        label='Email:',
         required= True,
-        max_length=70,
-        widget=forms.PasswordInput(
+        max_length=100,
+        widget=forms.EmailInput(
             attrs={
                 'class': 'form-control',
-                'placeholder': 'Digite sua senha'
+                'placeholder': 'Digite seu email'
                 }
             )
-        ) # widget=forms.PasswordInput is used to hide the password
-    
-CustomUser = get_user_model()
-
-class CadastroFormsPa(forms.ModelForm):
-    class Meta:
-        model = CustomUser
-        fields = ['username', 'cpf']
-
-    username = forms.CharField(
-        label='Nome de Login:',
-        required=True,
-        max_length=100,
-        widget=forms.TextInput(
-            attrs={
-                'class': 'form-control',
-                'placeholder': 'Ex: joaozinho123'
-            }
-        )
-    )
-
-    cpf = forms.CharField(
-        label='CPF:',
-        required=True,
-        max_length=11,
-        widget=forms.TextInput(
-            attrs={
-                'class': 'form-control',
-                'placeholder': 'Apenas números'
-            }
-        )
     )
 
     senhaCadastro = forms.CharField(
@@ -149,7 +132,7 @@ class CadastroFormsPa(forms.ModelForm):
                 'placeholder': 'Digite sua senha:'
                 }
             )
-        ) # widget=forms.PasswordInput is used to hide the password
+        ) 
     
     senhaCadastro2 = forms.CharField(
         label='Confirme sua senha:',
@@ -161,7 +144,7 @@ class CadastroFormsPa(forms.ModelForm):
                 'placeholder': 'Digite sua senha novamente'
                 }
             )
-        ) # widget=forms.PasswordInput is used to hide the password 
+        ) 
     
     def clean_nomeCadastro(self):
         nome = self.cleaned_data.get('nomeCadastro')
@@ -173,12 +156,6 @@ class CadastroFormsPa(forms.ModelForm):
             else:
                 return nome
             
-    def clean_cpfCadastro(self):
-        cpf = self.cleaned_data.get('cpfCadastro')
-        if not re.match(r'^\d{11}$', cpf):
-            raise forms.ValidationError('CPF deve conter exatamente 11 dígitos.')
-        return cpf
-            
     def clean_senhaCadastro2(self):
         senha = self.cleaned_data.get('senhaCadastro')
         senha2 = self.cleaned_data.get('senhaCadastro2')
@@ -188,9 +165,3 @@ class CadastroFormsPa(forms.ModelForm):
                 raise forms.ValidationError('As senhas não são iguais')
             else:
                 return senha2
-
-    def clean_cpf(self):
-        cpf = self.cleaned_data.get('cpf')
-        if not re.match(r'^\d{11}$', cpf):
-            raise forms.ValidationError('CPF deve conter exatamente 11 dígitos.')
-        return cpf

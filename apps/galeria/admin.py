@@ -1,4 +1,6 @@
 from django.contrib import admin
+from django.contrib.auth.admin import UserAdmin as BaseUserAdmin
+from django.contrib.auth.models import User
 from apps.galeria.models import Administrador, Usuario, TabelaNutricional, Refeicoes
 
 class ListandoAdministradores(admin.ModelAdmin):
@@ -31,7 +33,8 @@ class ListandoRefeicoes(admin.ModelAdmin):
     list_per_page = 10
     list_filter = ('alimento',)
 
-# Register your models here.
+
+
 admin.site.register(Administrador, ListandoAdministradores)
 admin.site.register(Usuario, ListandoUsuarios)
 admin.site.register(TabelaNutricional, ListandoTabelaNutricional)

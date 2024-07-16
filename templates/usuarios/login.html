@@ -7,7 +7,7 @@
                     <p> {{message}}	</p>
                 </div>
                 {%endfor%}
-                <form action="{%url 'loginAdm'%}" method="POST">
+                <form action="{%url 'login'%}" method="POST">
                     {% csrf_token %} 
                     <!-- o csrf_token é um token de segurança que evita ataques de CSRF 
                     (Cross-Site Request Forgery) -->
