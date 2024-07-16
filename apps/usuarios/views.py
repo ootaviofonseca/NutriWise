@@ -1,6 +1,6 @@
 from django.shortcuts import render, redirect
 
-from apps.usuarios.forms import CadastroFormsAdm, CadastroFormsPa, LoginForms
+from apps.usuarios.forms import CadastroFormsNutricionista, CadastroFormsPa, LoginForms
 
 from django.contrib.auth.models import User, Group
 
@@ -39,11 +39,11 @@ def login(request):
     
     return render(request, 'usuarios/login.html', {'form': form})
 
-def cadastroAdm(request):
-    form = CadastroFormsAdm()
+def cadastroNutricionista(request):
+    form = CadastroFormsNutricionista()
 
     if request.method == 'POST':
-        form = CadastroFormsAdm(request.POST)
+        form = CadastroFormsNutricionista(request.POST)
         
         if form.is_valid():
             
@@ -72,7 +72,7 @@ def cadastroAdm(request):
                 messages.success(request, 'Cadastro realizado com sucesso')
                 return redirect('login')
     
-    return render(request, 'usuarios/cadastroAdm.html', {'form': form})
+    return render(request, 'usuarios/cadastroNutricionista.html', {'form': form})
 
 def cadastroPa(request):
     form = CadastroFormsPa()

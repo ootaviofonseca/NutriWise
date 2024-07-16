@@ -2,7 +2,7 @@
 {% load static %}
 {% block content %}
             <section class="galeria" style="margin-left: 5em">
-                <form action="{%url 'cadastroAdm'%}" method="POST">
+                <form action="{%url 'cadastroNutricionista'%}" method="POST">
                     {% csrf_token %}
                     <div class="row">
                         {%for field in form.visible_fields %}

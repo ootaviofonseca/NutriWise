@@ -1,10 +1,10 @@
 from django.urls import path
-from apps.usuarios.views import login, cadastroPa, cadastroAdm, logout
+from apps.usuarios.views import login, cadastroPa, cadastroNutricionista, logout
 
 urlpatterns = [ 
     
     path('login',login, name='login'),
     path('cadastroPaciente',cadastroPa, name='cadastroPaciente'),
-    path('cadastroAdm',cadastroAdm, name='cadastroAdm'),
+    path('cadastroNutricionista',cadastroNutricionista, name='cadastroNutricionista'),
     path('logout',logout, name='logout')
 ]

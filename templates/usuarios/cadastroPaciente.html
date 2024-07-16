@@ -20,7 +20,11 @@
                     <div >
                         <button type="submit" class="btn btn-success col-12" style="padding: top 5px;"  >Cadastrar</button>
 
-                        <a href="{% url 'cadastroAdm' %}">Sou nutricionista</a>
+        
+                        <!--Href para cadastroNutricionista que deve ficar com uma distancia de 10px abaixo do botao-->
+                        <div style="margin-top: 10px">
+                            <a href="{% url 'cadastroNutricionista' %}" style="color: #D9D9D9">Cadastrar Nutricionista</a>
+                        </div>
                     </div>
                     
                 </form>
