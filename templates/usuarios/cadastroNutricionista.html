@@ -1,6 +1,11 @@
 {% extends 'shared/base.html' %}
 {% load static %}
 {% block content %}
+            {%for message in messages%}
+            <div class="alert alert-primary" role="alert">
+                <p> {{message}}	</p>
+            </div>
+            {%endfor%}
             <section class="galeria" style="margin-left: 5em">
                 <form action="{%url 'cadastroNutricionista'%}" method="POST">
                     {% csrf_token %}
