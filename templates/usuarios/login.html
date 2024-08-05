@@ -2,11 +2,7 @@
 {% load static %}
 {% block content %}
             <section class="galeria" style="margin-left: 5em">
-                {%for message in messages%}
-                <div class="alert alert-danger" role="alert">
-                    <p> {{message}}	</p>
-                </div>
-                {%endfor%}
+                
                 <form action="{%url 'login'%}" method="POST">
                     {% csrf_token %} 
                     <!-- o csrf_token é um token de segurança que evita ataques de CSRF 

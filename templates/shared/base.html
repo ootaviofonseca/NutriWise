@@ -16,9 +16,20 @@
 
 <body>
     
-
-    {%include 'partials/_alertas.html'%}
-    {% include 'partials/_menu.html' %}
+    {% if user.is_authenticated %}
+        <!-- se o usuario for superuser colocar o _menuNutricionista
+         se for paciente colocar _menuPaciente-->
+        {% if user.is_superuser %}
+            {% include 'partials/_menuNutricionista.html' %}
+        {% else %}
+            {% include 'partials/_menuPaciente.html' %}
+        {% endif %}
+        
+        
+    {% else %}
+        {% include 'partials/_menu.html' %}
+    {% endif %}
+   
     {% block content %}{% endblock %}
     {% include 'partials/_footer.html' %}
 </body>

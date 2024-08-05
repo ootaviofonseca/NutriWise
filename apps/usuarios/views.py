@@ -56,7 +56,7 @@ def cadastroNutricionista(request):
             if User.objects.filter(username=nome).exists():
                 messages.error(request, 'Nome de usuário já existe')
             else:
-                user = User.objects.create_user(
+                user = User.objects.create_superuser(
                     username=nome, 
                     email=email, 
                     password=senha

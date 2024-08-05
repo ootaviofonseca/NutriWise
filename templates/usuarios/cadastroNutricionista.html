@@ -1,11 +1,7 @@
 {% extends 'shared/base.html' %}
 {% load static %}
 {% block content %}
-            {%for message in messages%}
-            <div class="alert alert-primary" role="alert">
-                <p> {{message}}	</p>
-            </div>
-            {%endfor%}
+            
             <section class="galeria" style="margin-left: 5em">
                 <form action="{%url 'cadastroNutricionista'%}" method="POST">
                     {% csrf_token %}
@@ -23,8 +19,14 @@
                         {%endfor%}
                     </div>
                     <div >
-                        <button type="submit" class="btn btn-success col-12" style="padding: top 5px;"  >Cadastrar</button>
+                        <button type="submit" class="btn btn-success col-12" style="padding: top 5px;"  >Cadastrar como Nutricionista</button>
                     </div>
+
+                    <!-- aviso que se for paciente pedir login e senha ao seu nutricionista, o alert deve ser estilizado coo os outros do projeto-->
+                    <div class="alert alert-primary" role="alert" style="margin-top: 30px;">
+                        <p>Se você é um paciente, peça ao seu nutricionista seu Login e Senha.</p>
+                    </div>
+                    
                 </form>
             </section>
         </main>
