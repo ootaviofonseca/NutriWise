@@ -108,3 +108,6 @@ def logout(request):
     auth.logout(request)
     messages.success(request, 'Deslogado com sucesso!')
     return redirect('index')
+
+def cadastroTabela(request):
+    return render(request, '/admin/galeria/tabelanutricional/add/')

@@ -17,8 +17,6 @@
 <body>
     
     {% if user.is_authenticated %}
-        <!-- se o usuario for superuser colocar o _menuNutricionista
-         se for paciente colocar _menuPaciente-->
         {% if user.is_superuser %}
             {% include 'partials/_menuNutricionista.html' %}
         {% else %}
