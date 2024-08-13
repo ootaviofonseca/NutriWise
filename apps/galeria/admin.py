@@ -3,6 +3,10 @@ from django.contrib.auth.admin import UserAdmin as BaseUserAdmin
 from django.contrib.auth.models import User
 from apps.galeria.models import  TabelaNutricional, Refeicoes
 
+
+
+
+
 class RefeicoesInline(admin.TabularInline):
     model = TabelaNutricional.refeicoes.through
     extra = 1
@@ -13,6 +17,7 @@ class ListandoTabelaNutricional(admin.ModelAdmin):
     search_fields = ('usuarioReferencia__nome',)
     list_per_page = 10
     inlines = [RefeicoesInline]
+    exclude = ('refeicoes',)  
 
 class ListandoRefeicoes(admin.ModelAdmin):
     list_display = ('alimento', 'quantidade', 'horario')
