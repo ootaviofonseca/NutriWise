@@ -1,5 +1,6 @@
-from django.shortcuts import render, redirect
+from django.shortcuts import get_object_or_404, render, redirect
 
+from apps.galeria.models import TabelaNutricional
 from apps.usuarios.forms import CadastroFormsNutricionista, CadastroFormsPa, LoginForms
 
 from django.contrib.auth.models import User, Group
@@ -38,6 +39,16 @@ def login(request):
                 messages.error(request, 'Usuário ou senha inválidos')
     
     return render(request, 'usuarios/login.html', {'form': form})
+
+def pagina_inicial(request):
+    usuario = get_object_or_404(User, id=request.user.id)
+    tabela = TabelaNutricional.objects.filter(usuarioReferencia=usuario).first()
+    
+    context = {
+        'usuario': usuario,
+        'tabela': tabela,
+    }
+    return render(request, 'pagina_inicial.html', context)
 
 def cadastroNutricionista(request):
     form = CadastroFormsNutricionista()
@@ -111,3 +122,10 @@ def logout(request):
 
 def cadastroTabela(request):
     return render(request, '/admin/galeria/tabelanutricional/add/')
+
+def tabela_nutricional_view(request, username):
+    try:
+        tabela = TabelaNutricional.objects.get(usuarioReferencia__username=username)
+        return render(request, 'usuarios/tabelaNutricional.html', {'tabela': tabela})
+    except TabelaNutricional.DoesNotExist:
+        return render(request, 'usuarios/tabelaNutricional.html', {'message': 'Tabela Nutricional não encontrada para o usuário.'})

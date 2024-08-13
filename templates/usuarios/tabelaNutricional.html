@@ -1,0 +1,78 @@
+{% extends 'shared/base.html' %}
+{% load static %}
+{% block content %}
+<!--deve mostrar a tabela nutricional do usuario logado-->
+    <h1>Tabela Nutricional de {{ tabela.usuarioReferencia.username }}</h1>
+    {% if tabela %}
+    <div class="nutritional-table">
+        <table>
+            <thead>
+                <tr>
+                    <th>Categoria</th>
+                    <th>Detalhes</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <th>Usuário Peso</th>
+                    <td>{{ tabela.usuarioPeso }}</td>
+                </tr>
+                <tr>
+                    <th>Gordura Corporal</th>
+                    <td>{{ tabela.gorduraCorporal }}</td>
+                </tr>
+                <tr>
+                    <th>Objetivo</th>
+                    <td>{{ tabela.objetivo }}</td>
+                </tr>
+                <tr>
+                    <th>Exames</th>
+                    <td>{{ tabela.exames }}</td>
+                </tr>
+                <tr>
+                    <th>Refeições</th>
+                    <td>
+                        <ul>
+                            {% for refeicao in tabela.refeicoes.all %}
+                                <li>{{ refeicao }}</li>
+                            {% endfor %}
+                        </ul>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+    {% else %}
+    <p class="message">{{ message }}</p>
+    {% endif %}
+
+<style>
+    .nutritional-table table {
+        width: 100%;
+        border-collapse: collapse;
+        margin: 20px 0;
+        font-size: 16px;
+    }
+
+    .nutritional-table th, .nutritional-table td {
+        border: 1px solid #ddd;
+        padding: 10px;
+        text-align: left;
+    }
+
+    .nutritional-table th {
+        background-color: #f4f4f4;
+        font-weight: bold;
+    }
+
+    .nutritional-table tr:nth-child(even) {
+        background-color: #f9f9f9;
+    }
+
+    .message {
+        color: #ff0000;
+        font-size: 18px;
+    }
+</style>
+
+{% endblock %}
