@@ -11,10 +11,8 @@
     <main class="principal">
         <section class="menu-lateral">
             <nav class="menu-lateral__navegacao">
-                <a href="{% url 'index' %}"><img src="{% static '/assets/ícones/1x/Home - ativo.png' %}"> Home</a>
-                <a href="{% url 'tabelaNutricional' username=user.username %}" class="botao-tabela">
-                    <img src="{% static '/assets/ícones/1x/Surpreenda-me - inativo.png' %}" alt="Tabela Nutricional"> Tabela Nutricional
-                </a>
+                <a href="{% url 'tabelaNutricional' username=user.username %}"><img src="{% static '/assets/ícones/1x/Home - ativo.png' %}"> Home</a>
+                
                 <a href="{% url 'logout' %}"><img src="{% static '/assets/ícones/1x/Surpreenda-me - inativo.png' %}"> Logout</a>
                
 
