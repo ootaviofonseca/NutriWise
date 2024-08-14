@@ -118,7 +118,7 @@ def cadastroPa(request):
 def logout(request):
     auth.logout(request)
     messages.success(request, 'Deslogado com sucesso!')
-    return redirect('index')
+    return redirect('login')
 
 def cadastroTabela(request):
     return render(request, '/admin/galeria/tabelanutricional/add/')
