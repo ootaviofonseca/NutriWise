@@ -10,7 +10,7 @@
 ">
     <h2 style="color: #ddd; font-size: 30px;">Tabela Nutricional de {{ tabela.usuarioReferencia.username }}</h2>
     {% if tabela %}
-    <div class="nutritional-table">
+    <div class="tabeal_Nutricional">
         <table>
             <thead>
                 <tr>
@@ -40,7 +40,8 @@
                     <td>
                         <ul>
                             {% for refeicao in tabela.refeicoes.all %}
-                                <li>{{ refeicao }}</li>
+                                <li> {{ refeicao.horario}} - {{ refeicao }} </li>
+                                
                             {% endfor %}
                         </ul>
                     </td>
@@ -54,26 +55,26 @@
 </div>
 </main>
 <style>
-    .nutritional-table table {
+    .tabeal_Nutricional table {
         width: 100%;
         border-collapse: collapse;
         margin: 20px 0;
         font-size: 16px;
     }
 
-    .nutritional-table th, .nutritional-table td {
+    .tabeal_Nutricional th, .tabeal_Nutricional td {
         border: 1px solid #ddd;
         background-color: white;
         padding: 10px;
         text-align: left;
     }
 
-    .nutritional-table th {
+    .tabeal_Nutricional th {
         background-color: #f4f4f4;
         font-weight: bold;
     }
 
-    .nutritional-table tr:nth-child(even) {
+    .tabeal_Nutricional tr:nth-child(even) {
         background-color: #f9f9f9;
     }
 
