@@ -2,7 +2,13 @@
 {% load static %}
 {% block content %}
 <!--deve mostrar a tabela nutricional do usuario logado-->
-    <h1>Tabela Nutricional de {{ tabela.usuarioReferencia.username }}</h1>
+<div style="
+    display: flex;
+    flex-grow: 1;
+    flex-direction: column;
+    justify-content: center;
+">
+    <h2 style="color: #ddd; font-size: 30px;">Tabela Nutricional de {{ tabela.usuarioReferencia.username }}</h2>
     {% if tabela %}
     <div class="nutritional-table">
         <table>
@@ -45,7 +51,8 @@
     {% else %}
     <p class="message">{{ message }}</p>
     {% endif %}
-
+</div>
+</main>
 <style>
     .nutritional-table table {
         width: 100%;
@@ -56,6 +63,7 @@
 
     .nutritional-table th, .nutritional-table td {
         border: 1px solid #ddd;
+        background-color: white;
         padding: 10px;
         text-align: left;
     }
