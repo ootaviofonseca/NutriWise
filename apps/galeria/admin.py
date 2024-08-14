@@ -17,7 +17,19 @@ class ListandoTabelaNutricional(admin.ModelAdmin):
     search_fields = ('usuarioReferencia__nome',)
     list_per_page = 10
     inlines = [RefeicoesInline]
-    exclude = ('refeicoes',)  
+    exclude = ('refeicoes',) 
+
+    def get_queryset(self, request):
+        qs = super().get_queryset(request)
+        # Se o usuário é superusuário, ele verá apenas os objetos que criou
+        if request.user.is_superuser:
+            return qs.filter(usuarioReferencia=request.user)
+        return qs 
+    
+    def save_model(self, request, obj, form, change):
+        if not obj.pk:
+            obj.usuarioReferencia = request.user
+        super().save_model(request, obj, form, change)
 
 class ListandoRefeicoes(admin.ModelAdmin):
     list_display = ('alimento', 'quantidade', 'horario')
